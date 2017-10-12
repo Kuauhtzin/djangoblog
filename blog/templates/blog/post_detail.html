@@ -2,14 +2,20 @@
 
 {% block content %}
   <div class="post">
+
+    <div class="btn-group pull-right">
+      {% if post.published_date.isNull %}
+        <a class="btn btn-primary" href="{% url 'post_publish' pk=post.pk %}" role="button">Publish</a>
+      {% endif %}
+      <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}" role="button"><i class="fa fa-pencil"></i></a>
+      <a class="btn btn-dark" href="{% url 'post_remove' pk=post.pk %}"><i class="fa fa-remove"></i></a>
+    </div>
     {% if post.published_date %}
     <div class="date">
-      {% if post.published_date %}
-        {{ post.published_date }}
-      {% endif %}
-      <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}" role="button"><i class="fa fa-pencil"></i></a>
+      {{ post.published_date }}
     </div>
     {% endif %}
+    
     <h1>{{ post.title }}</h1>
     <p>{{ post.text|linebreaksbr }}</p>
   </div>
